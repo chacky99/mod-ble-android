@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattServerCallback
 import android.bluetooth.BluetoothGattService
 import kotlinx.coroutines.*
+import network.xyo.ble.gatt.XYBluetoothBase
 import network.xyo.ble.gatt.server.XYBluetoothGattServer
 import network.xyo.ble.gatt.server.XYBluetoothReadCharacteristic
 import network.xyo.ble.gatt.server.XYBluetoothService
@@ -94,7 +95,7 @@ class XyoBluetoothServer (private val bluetoothServer : XYBluetoothGattServer) :
         }
 
         override fun send(data: ByteArray,  waitForResponse : Boolean) : Deferred<ByteArray?> {
-            return GlobalScope.async {
+            return GlobalScope.async() {
                 // check if the device is still connected
                 if (!bluetoothServer.isDeviceConnected(bluetoothDevice)) {
                     return@async null
